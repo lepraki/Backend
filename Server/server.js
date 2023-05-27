@@ -14,10 +14,10 @@ class Server {
         });
 
         this.paths = {
-            Fotos: '/api/Fotos',
-            Chat: '/api/Chat',
-            User: '/api/User',
-            Public: '/api/Public'
+            Imagenes: '/api/imagenes',
+            Perfil: '/api/perfil',
+            auth: '/api/auth',
+            Publicacion: '/api/Public'
         };
 
         this.connectToDB();
@@ -38,10 +38,10 @@ class Server {
     }
 
     setRoutes() {
-        this.app.use(this.paths.auth, require('../Routes/FotosRoutes'));
-        this.app.use(this.paths.producto, require('../Routes/PublicRoutes'));
-        this.app.use(this.paths.restaurante, require('../Routes/UserRoutes'));
-        this.app.use(this.paths.imagen, require('../Routes/ChatRoutes'));
+        this.app.use(this.paths.auth, require('../Routes/auth'));
+        this.app.use(this.paths.Publicacion, require('../Routes/PublicRoutes'));
+        this.app.use(this.paths.Perfil, require('../Routes/Perfil'));
+        this.app.use(this.paths.Imagenes, require('../Routes/FotosRoutes'));
     }
 
     sockets() {
