@@ -58,7 +58,7 @@ async function imagenPerfil(req, res = express.request) {
 }
 
 async function imagenPublicacion(req, res = express.request) {
-  const publicacion = Publicacion.findById(req.params.id);
+  const publicacion = PublicModel.findById(req.params.id);
 
   if (req.files?.imagen)
     publicacion.imagen = {
