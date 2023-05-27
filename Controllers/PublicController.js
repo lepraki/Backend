@@ -1,14 +1,14 @@
 const PublicModel = require("../Models/PublicModel");
 const Perfil = require("../Models/Perfil");
 
-async function crearProducto(req, res = express.request) {
-  const producto = new Producto(req.body);
-  producto.restaurante = req.params.ir;
+async function crearPublicacion(req, res = express.request) {
+  const publicacion = new Publicacion(req.body);
+  publicacion.perfil = req.params.ir;
 
   try {
-    const saved = await producto.save();
+    const saved = await publicacion.save();
 
-    // Retorna el Producto Creado
+    // Retorna el Post Creado
     res.json({
       ok: true,
       task: saved
@@ -22,17 +22,17 @@ async function crearProducto(req, res = express.request) {
   }
 }
 
-async function listarProductos(req, res = express.request) {
+async function listarPost(req, res = express.request) {
   try {
     let id = req.params.ir;
-    // Buscar el Restaurante y los Productos
-    const restaurante = await Restaurante.findById(id);
-    const productos = await Producto.find({restaurante: id});
+    // Buscar el perfil y los Post
+    const perfil = await Perfil.findById(id);
+    const publicacion = await PublicModel.find({perfil: id});
 
     res.status(200).json({
       ok: true,
-      restaurante,
-      productos
+      perfil,
+      publicacion
     });
   } catch (error) {
     console.log(error);
@@ -43,23 +43,23 @@ async function listarProductos(req, res = express.request) {
   }
 }
 
-async function actualizarProducto(req, res = express.request) {
+async function actualizarPost(req, res = express.request) {
   try {
-    const producto = await Producto.findById(req.params.id);
-    if (producto.restaurante == req.params.ir) {
-      producto.nombre = req.body.nombre;
-      producto.precio = req.body.precio;
+    const publicacion = await Publicion.findById(req.params.id);
+    if (publicacion.perfil == req.params.ir) {
+      publicacion.descripcion = req.body.descripcion;
+      
 
       await producto.save();
 
       res.status(200).json({
         ok: true,
-        producto
+        publicacion
       });
     } else {
       res.status(404).json({
         ok: false,
-        msg: 'Producto no Encontrado'
+        msg: 'Post no Encontrado'
       });
     }
   } catch (error) {
@@ -71,11 +71,11 @@ async function actualizarProducto(req, res = express.request) {
   }
 }
 
-async function eliminarProducto(req, res = express.request) {
+async function eliminarPost(req, res = express.request) {
   try {
-    const producto = await Producto.findById(req.params.id);
-    if (producto.restaurante == req.params.ir) {
-      await producto.delete();
+    const publicacion = await Publicion.findById(req.params.id);
+    if (publicacion.restaurante == req.params.ir) {
+      await publicacion.delete();
 
       res.status(200).json({
         ok: true
@@ -83,7 +83,7 @@ async function eliminarProducto(req, res = express.request) {
     } else {
       res.status(404).json({
         ok: false,
-        msg: 'Producto no Encontrado'
+        msg: 'Post no Encontrado'
       });
     }
   } catch (error) {
@@ -96,8 +96,8 @@ async function eliminarProducto(req, res = express.request) {
 }
 
 module.exports = {
-  crearProducto,
-  listarProductos,
-  actualizarProducto,
-  eliminarProducto
+  crearPublicacion,
+  listarPost,
+  actualizarPost,
+  eliminarPost
 };

@@ -26,4 +26,4 @@ const PerfilScheme = Schema({
     }
 });
 
-module.exports = model('Restaurante', RestauranteScheme);
+module.exports = model('Perfil', PerfilScheme);
