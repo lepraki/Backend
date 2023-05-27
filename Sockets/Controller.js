@@ -2,8 +2,8 @@ const chats = {};
 
 const socketController = (socket, io) => {
     socket.on("welcome", user => {
-        let room = user.restaurante;
-        // Crea la sala del restaurante o añade el socket
+        let room = user.redsocial ;
+        // Crea la sala de la redsocial añade el socket
         if (!socket.room) {
             if (chats[room]) chats[room].push(socket);
             else chats[room] = [socket];
