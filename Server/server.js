@@ -4,13 +4,20 @@ const { dbConnection } = require('../Database/Config');
 const cors = require('cors');
 const { socketController } = require('../Sockets/Controller');
 
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+
 class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app);
         this.io = require('socket.io')(this.server, {
-            cors: {origin: "http://localhost:3000"}
+            cors: {origin: "*"}
         });
 
         this.paths = {
@@ -31,8 +38,10 @@ class Server {
         await dbConnection();
     }
 
+    
+
     addMiddlewares() {
-        this.app.use( cors() );
+        this.app.use( cors(corsOptions) );
         this.app.use( express.json() );
         this.app.use( express.static('public') );
     }
