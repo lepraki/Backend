@@ -12,18 +12,22 @@ const PerfilScheme = Schema({
     imagenes: {
         data: Buffer,
         contentType: String,
-        required: false
+        
     },
     fotoperfil: {
         data: Buffer,
         contentType: String,
-        required: false
+        
     },
     usuario: {
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
     }
+
+    
 });
+
+
 
 module.exports = model('Perfil', PerfilScheme);

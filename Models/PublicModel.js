@@ -11,7 +11,7 @@ const PublicacionScheme = Schema({
     imagen: {
         data: Buffer,
         contentType: String,
-        required: false
+        
     },
     perfil: {
         type: Schema.Types.ObjectId,
@@ -20,4 +20,6 @@ const PublicacionScheme = Schema({
     }
 });
 
-module.exports = model('PublicModel', ProductoScheme);
+
+
+module.exports = model('PublicModel', PublicacionScheme);
