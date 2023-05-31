@@ -4,12 +4,12 @@ const { dbConnection } = require('../Database/Config');
 const cors = require('cors');
 const { socketController } = require('../Sockets/Controller');
 
-const corsOptions = {
-    origin: '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  };
+// const corsOptions = {
+//     origin: '*',
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204,
+//   };
 
 class Server {
     constructor() {
@@ -17,7 +17,7 @@ class Server {
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app);
         this.io = require('socket.io')(this.server, {
-            cors: {origin: "*"}
+            cors: {origin: "http://localhost:3000"}
         });
 
         this.paths = {
@@ -41,7 +41,7 @@ class Server {
     
 
     addMiddlewares() {
-        this.app.use( cors(corsOptions) );
+        this.app.use( cors() );
         this.app.use( express.json() );
         this.app.use( express.static('public') );
     }
