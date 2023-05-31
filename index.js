@@ -19,15 +19,15 @@ const app = express();
 dbConnection();
 
 // CORS options
-const corsOptions = {
-  origin: '*',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//   origin: '*',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204,
+// };
 
 // CORS
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Public folder
 app.use(express.static('public'));
