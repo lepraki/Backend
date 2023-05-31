@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const { dbConnection } = require('../Database/Config');
 const cors = require('cors');
-
+const { socketController } = require('../Sockets/Controller');
 
 const corsOptions = {
     origin: '*',
@@ -16,7 +16,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app);
-       
+        this.io = require('socket.io')(this.server, {
+            cors: {origin: "*"}
+        });
+
         this.paths = {
             Imagenes: '/api/imagenes',
             Perfil: '/api/perfil',
@@ -28,7 +31,7 @@ class Server {
         this.addMiddlewares();
         this.setRoutes();
         // WebSockets
-      
+        this.sockets();
     }
 
     async connectToDB() {
@@ -50,7 +53,11 @@ class Server {
         this.app.use(this.paths.Imagenes, require('../Routes/FotosRoutes'));
     }
 
-   
+    sockets() {
+        // Cuando se Conecta
+        this.io.on('connection', 
+            socket => socketController(socket, this.io));
+    }
 
     listen() {
         this.server.listen(this.port, () => {
