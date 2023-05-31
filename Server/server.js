@@ -7,8 +7,7 @@ const { socketController } = require('../Sockets/Controller');
 const corsOptions = {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+
   };
 
 class Server {
@@ -17,7 +16,7 @@ class Server {
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app);
         this.io = require('socket.io')(this.server, {
-            cors: {origin: "*"}
+            corsOptions
         });
 
         this.paths = {
