@@ -17,7 +17,7 @@ class Server {
         this.port = process.env.PORT;
         this.server = require('http').createServer(this.app);
         this.io = require('socket.io')(this.server, {
-            cors: {origin: "http://localhost:3000"}
+            cors: {origin: "http://localhost:5173"}
         });
 
         this.paths = {
